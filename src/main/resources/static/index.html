@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Acadêmica | Professores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="topo">
+        <h1>Gestão de Professores</h1>
+        <p class="subtitulo">Cadastro, consulta e organização de docentes</p>
+        </div>
+        </div>
+    </header>
+    <main class="container">
+        <section class="resumo">
+            <div><span class="resumo-label">PROFESSORES CADASTRADOS</span><strong id="total">—</strong><small>Registros
+                    encontrados</small></div>
+            <div><span class="resumo-label">DEPARTAMENTOS</span><strong id="totalDepartamentos">—</strong><small>Áreas
+                    organizacionais</small></div>
+        </section>
+
+        <section class="painel">
+            <div class="cabecalho">
+                <div><span class="sobretitulo azul">GERENCIAMENTO</span>
+                    <h2 id="tituloFormulario">Cadastrar professor</h2>
+                    <p>Preencha os dados abaixo. Os campos são obrigatórios.</p>
+                </div>
+                <span id="modoBadge" class="badge">NOVO CADASTRO</span>
+            </div>
+            <form id="formProfessor">
+                <div class="grade">
+                    <label>Nome completo<input id="nome" type="text" maxlength="120" required
+                            placeholder="Ex.: Maria da Silva"></label>
+                    <label>E-mail institucional<input id="email" type="email" maxlength="160" required
+                            placeholder="nome@instituicao.edu.br"></label>
+                    <label>Área de atuação<input id="area" type="text" maxlength="100" required
+                            placeholder="Ex.: Desenvolvimento Backend"></label>
+                    <label>Telefone<input id="telefone" type="tel" maxlength="25" required
+                            placeholder="Ex.: (86) 99999-8888"></label>
+                    <label class="campo-completo">Departamento<select id="departamento" required>
+                            <option value="">Carregando departamentos...</option>
+                        </select></label>
+                </div>
+                <div class="acoes-form"><button id="btnSalvar" type="submit">Salvar professor</button><button
+                        id="btnCancelar" class="secundario escondido" type="button">Cancelar edição</button><span
+                        id="mensagem" role="status" aria-live="polite"></span></div>
+            </form>
+        </section>
+
+        <section class="painel">
+            <div class="cabecalho lista-cabecalho">
+                <div><span class="sobretitulo azul">BASE DE DADOS</span>
+                    <h2>Professores</h2>
+                    <p>Pesquise, edite ou remova registros cadastrados.</p>
+                </div>
+                <button id="btnAtualizar" class="secundario" type="button">Atualizar lista</button>
+            </div>
+            <div class="filtros">
+                <label class="busca-label">Pesquisar por
+                    <div class="busca-linha"><select id="tipoBusca" aria-label="Campo de pesquisa">
+                            <option value="nome">Nome</option>
+                            <option value="area">Área de atuação</option>
+                        </select><input id="termoBusca" type="search" placeholder="Digite para pesquisar..."><button
+                            id="btnBuscar" type="button">Buscar</button></div>
+                </label>
+                <button id="btnLimparBusca" type="button" class="link-btn">Limpar filtros</button>
+            </div>
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            
+                            <th>Professor</th>
+                            <th>Contato</th>
+                            <th>Área de atuação</th>
+                            <th>Departamento</th>
+                            <th class="col-acoes">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaProfessores">
+                        <tr>
+                            <td colspan="5" class="estado">Carregando professores...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p id="statusLista" class="status-lista"></p>
+        </section>
+        <footer>Gestão Acadêmica</footer>
+    </main>
+    <script src="app.js"></script>
+</body>
+
+</html>
