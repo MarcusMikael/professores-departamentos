@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.professores.dto.ProfessorRequestDTO;
+import com.example.professores.dto.ProfessorResponseDTO;
 import com.example.professores.model.DepartamentoModel;
 import com.example.professores.model.ProfessorModel;
 import com.example.professores.repository.DepartamentoRepository;
@@ -152,4 +154,86 @@ public class ProfessorService {
             }
         }
     }
+
+    // Converte uma entidade em DTO de resposta
+    private ProfessorResponseDTO converterParaDTO(ProfessorModel professor) {
+        return new ProfessorResponseDTO(
+                professor.getId(),
+                professor.getNome(),
+                professor.getEmail(),
+                professor.getArea(),
+                professor.getTelefone(),
+                professor.getDepartamento().getId(),
+                professor.getDepartamento().getNome());
+    }
+
+    // Parte com uso do dto
+    public List<ProfessorResponseDTO> listarTodosDTO() {
+        return professorRepository.findAll()
+                .stream()
+                .map(this::converterParaDTO)
+                .toList();
+    }
+
+    public ProfessorResponseDTO buscarProfessorIdDTO(Long id) {
+        return converterParaDTO(buscarProfessorId(id));
+    }
+
+    public List<ProfessorResponseDTO> buscarProfessorPorNomeDTO(String nome) {
+        return buscarProfessorPorNome(nome)
+                .stream()
+                .map(this::converterParaDTO)
+                .toList();
+    }
+
+    public List<ProfessorResponseDTO> buscarProfessorPorAreaDTO(String area) {
+        return buscarProfessorPorArea(area)
+                .stream()
+                .map(this::converterParaDTO)
+                .toList();
+    }
+
+    public ProfessorResponseDTO cadastrarProfessorDTO(
+            ProfessorRequestDTO dto) {
+
+        DepartamentoModel departamento = buscarDepartamento(dto.getDepartamentoId());
+
+        ProfessorModel professor = new ProfessorModel();
+        professor.setNome(dto.getNome());
+        professor.setEmail(dto.getEmail().trim());
+        professor.setArea(dto.getArea());
+        professor.setTelefone(dto.getTelefone());
+        professor.setDepartamento(departamento);
+
+        ProfessorModel salvo = cadastrarProfessor(professor);
+
+        return converterParaDTO(salvo);
+    }
+
+    public ProfessorResponseDTO atualizarProfessorDTO(
+            Long id, ProfessorRequestDTO dto) {
+
+        DepartamentoModel departamento = buscarDepartamento(dto.getDepartamentoId());
+
+        ProfessorModel professor = new ProfessorModel();
+        professor.setNome(dto.getNome());
+        professor.setEmail(dto.getEmail().trim());
+        professor.setArea(dto.getArea());
+        professor.setTelefone(dto.getTelefone());
+        professor.setDepartamento(departamento);
+
+        ProfessorModel atualizado = atualizarProfessor(id, professor);
+
+        return converterParaDTO(atualizado);
+    }
+
+    public List<ProfessorResponseDTO> buscarPorDepartamentoDTO(
+            Long departamentoId) {
+
+        return buscarPorDepartamento(departamentoId)
+                .stream()
+                .map(this::converterParaDTO)
+                .toList();
+    }
+
 }

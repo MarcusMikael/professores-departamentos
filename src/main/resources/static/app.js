@@ -101,7 +101,7 @@ function desenharProfessores(professores) {
         const departamento = document.createElement("td");
         const tag = document.createElement("span");
         tag.className = "departamento-tag";
-        tag.textContent = professor.departamento?.nome || "Não informado";
+        tag.textContent = professor.departamentoNome || "Não informado";
         departamento.appendChild(tag);
         linha.appendChild(departamento);
 
@@ -164,7 +164,7 @@ function prepararEdicao(professor) {
     document.getElementById("email").value = professor.email || "";
     document.getElementById("area").value = professor.area || "";
     document.getElementById("telefone").value = professor.telefone || "";
-    selectDepartamento.value = professor.departamento?.id ?? "";
+    selectDepartamento.value = professor.departamentoId ?? "";
     document.getElementById("tituloFormulario").textContent = `Editar professor #${professor.id}`;
     document.getElementById("modoBadge").textContent = "MODO DE EDIÇÃO";
     document.getElementById("btnSalvar").textContent = "Salvar alterações";
@@ -194,7 +194,7 @@ async function salvarProfessor(evento) {
         email: document.getElementById("email").value.trim(),
         area: document.getElementById("area").value.trim(),
         telefone: document.getElementById("telefone").value.trim(),
-        departamento: { id: Number(departamentoId) }
+        departamentoId: Number(departamentoId)
     };
     if (!professor.nome || !professor.email || !professor.area || !professor.telefone) {
         mostrarMensagem("Preencha todos os campos obrigatórios.", true);

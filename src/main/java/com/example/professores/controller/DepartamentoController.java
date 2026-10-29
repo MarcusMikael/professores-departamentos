@@ -85,6 +85,7 @@ public class DepartamentoController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        departamentoService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 

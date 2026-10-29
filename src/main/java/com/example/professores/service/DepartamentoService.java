@@ -8,14 +8,19 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.professores.model.DepartamentoModel;
 import com.example.professores.repository.DepartamentoRepository;
+import com.example.professores.repository.ProfessorRepository;
 
 @Service
 public class DepartamentoService {
 
     private final DepartamentoRepository departamentoRepository;
+    private final ProfessorRepository professorRepository;
 
-    public DepartamentoService(DepartamentoRepository departamentoRepository) {
+    public DepartamentoService(
+            DepartamentoRepository departamentoRepository,
+            ProfessorRepository professorRepository) {
         this.departamentoRepository = departamentoRepository;
+        this.professorRepository = professorRepository;
     }
 
     public List<DepartamentoModel> listarTodos() {
@@ -27,8 +32,7 @@ public class DepartamentoService {
                 HttpStatus.NOT_FOUND, "Departamento não encontrado"));
     }
 
-   
-    public DepartamentoModel cadastrarDepartamento(DepartamentoModel departamento){
+    public DepartamentoModel cadastrarDepartamento(DepartamentoModel departamento) {
         return departamentoRepository.save(departamento);
     }
 
@@ -44,8 +48,16 @@ public class DepartamentoService {
     }
 
     public void excluir(Long id) {
-        DepartamentoModel departamento = buscarDepartamentoId(id);
-        departamentoRepository.delete(departamento);
+    DepartamentoModel departamento = buscarDepartamentoId(id);
+
+    if (professorRepository.existsByDepartamento_Id(id)) {
+        throw new ResponseStatusException(
+                HttpStatus.CONFLICT,
+                "Não é possível excluir um departamento que possui professores vinculados."
+        );
     }
+
+    departamentoRepository.delete(departamento);
+}
 
 }

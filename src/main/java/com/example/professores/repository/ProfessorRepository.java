@@ -17,4 +17,6 @@ public interface ProfessorRepository extends JpaRepository<ProfessorModel, Long>
     List<ProfessorModel> findByDepartamento_Id(Long departamentoId);
 
     boolean existsByEmailIgnoreCase(String email);
+
+    boolean existsByDepartamento_Id(Long departamentoId);
 }
