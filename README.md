@@ -213,7 +213,7 @@ A interface web também permite testar as principais operações de gerenciament
 
 O vídeo demonstra a execução do sistema, a interface web e as principais funcionalidades da aplicação, incluindo cadastro, consulta, edição e exclusão de professores, além da documentação da API.
 
-**Link do vídeo:** https://youtu.be/2HLbfHMh92g
+**Link do vídeo:** https://youtu.be/OvQP-X5jq5Y
 
 ## 16. Autor
 
